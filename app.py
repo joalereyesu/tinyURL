@@ -2,17 +2,14 @@ from flask import Flask, render_template, request, url_for, redirect
 from jinja2 import Template, FileSystemLoader, Environment
 from typing import Dict, Text
 import random, string
+import server
+
+domain = "https://makeItTiny.com/"
 
 templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
 
-domain = "https://domain.com/"
 
-def generateRandomKey ():
-    key = string.ascii_lowercase + string.digits
-    randomKey = ''.join((random.choice(key) for i in range(8)))
-    result = domain + randomKey
-    return result
 
 app = Flask(__name__)
 
@@ -20,13 +17,20 @@ app = Flask(__name__)
 def tiny():
     url = request.args.get("url", "")
     optional = request.args.get("optional", "")
-    if (optional != ""):
+    if (optional == "" and url):
         #url se va al redis y se crea el random URL
-        pass
+        token = server.generateRandomKey(domain)
+        server.setNewLink(token, url)
+        return render_template("tiny.html", link = token)
     #si optional si trae algun input se crea URL con ese input
+    token = server.generateOptionalKey(optional, domain)
+    server.setNewLink(token, url)
+    return render_template("tiny.html", link = token)
 
-    return render_template("tiny.html")
-
+@app.route("/urls")
+def urls():
+    allURLS = server.getAllLinks()
+    return render_template("urls.html", links = allURLS)
 
 
 if __name__ == "__main__":
