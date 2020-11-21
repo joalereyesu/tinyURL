@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="topnav">
+        <a href="/">MakeItTiny</a>
+        <a href="/urls">URLs</a>
+        <a href="/stats">Stats</a>
+        <a class="active" href="/About">About</a>
+    </div>
+    <br>
+    <h1>About</h1>
+    <br>
+    <h3>Who We Are</h3>
+    <p>We are university students at UFM that are really into technology and making everything easier for you. That's why we are currently studying Computer Science. As a matter of fact, this web page was assigned to us as our final project for the second semester in course. We hope you enjoy and find this web page useful, as that was our main motivation for it to be like it currently is.</p>
+    <h3>Developers</h3>
+    <p> Jose Alejandro Reyes</p>
+    <p> Marcela Melgar</p>
+    <h3>Contact Us!</h3>
+    <p>As we are still learning, we would appreciate any kind of feedback you could give us.</p>
+
+    <form>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Name</label>
+          <input type="name" class="form-control" id="feedbackname" placeholder="Enter Name">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Email address</label>
+            <input type="email" class="form-control" id="feedbackemail" placeholder="Enter Email">
+          </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Let us know what you think!</label>
+          <textarea class="form-control" id="feedback" rows="3"></textarea>
+        </div>
+        <a class="btn btn-primary" href="/Thanks" role="button">Send</a>
+        <br>
+        <br>
+    </form>
+{% endblock %}

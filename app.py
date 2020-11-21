@@ -9,8 +9,6 @@ domain = "https://makeItTiny.com/"
 templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
 
-
-
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"] )
@@ -22,16 +20,21 @@ def tiny():
         token = server.generateRandomKey(domain)
         server.setNewLink(token, url)
         return render_template("tiny.html", link = token)
-    #si optional si trae algun input se crea URL con ese input
-    token = server.generateOptionalKey(optional, domain)
-    server.setNewLink(token, url)
-    return render_template("tiny.html", link = token)
+    elif (optional):
+        #si optional si trae algun input se crea URL con ese input
+        token = server.generateOptionalKey(optional, domain)
+        server.setNewLink(token, url)
+        return render_template("tiny.html", link = token)
+    return render_template("tiny.html")
 
 @app.route("/urls")
 def urls():
     allURLS = server.getAllLinks()
     return render_template("urls.html", links = allURLS)
 
+@app.route("/Thanks")
+def thankYou():
+    return render_template("thankyou.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)
