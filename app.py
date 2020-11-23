@@ -19,20 +19,37 @@ def tiny():
         #url se va al redis y se crea el random URL
         token = server.generateRandomKey(domain)
         server.setNewLink(token, url)
-        return render_template("tiny.html", link = token)
+        return render_template("myURL.html", link = token)
     elif (optional):
         #si optional si trae algun input se crea URL con ese input
         token = server.generateOptionalKey(optional, domain)
         server.setNewLink(token, url)
-        return render_template("tiny.html", link = token)
+        return render_template("myURL.html", link = token)
     return render_template("tiny.html")
 
-@app.route("/urls")
+@app.route("/urls", methods=["GET", "POST"])
 def urls():
-    allURLS = server.getAllLinks()
-    return render_template("urls.html", links = allURLS)
+    token = request.args.get("getKey()", "")
+    print(token)
+    if (token):
+        server.deleteURL(token)
+        return render_template("urls.html", links = server.getAllLinks())
+    return render_template("urls.html", links = server.getAllLinks())
 
-@app.route("/Thanks")
+@app.route("/delete")
+def delete():
+    token = request.args.get("name")
+    #dic = server.getAllLinks()
+    #list_links = list(dic)
+    #token = list_links[position]
+    server.deleteURL(token)
+    return render_template("urls.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/thanks")
 def thankYou():
     return render_template("thankyou.html")
 

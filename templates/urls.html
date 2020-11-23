@@ -1,10 +1,45 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+
+    <script>
+        function getIndex() {
+
+        }
+    </script>
     <div class="topnav">
         <a href="/">MakeItTiny</a>
-        <a class="active" href="#news">URLs</a>
-        <a href="#contact">Stats</a>
-        <a href="/About">About</a>
+        <a class="active" href="/urls">URLs</a>
+        <a href="/stats">Stats</a>
+        <a href="/about">About</a>
     </div>
+
+    <br>
+    <h1>Your URLs</h1>
+    <br>
+    <table class = "table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope = "col">Original</th>
+                <th scope = "col">Tiny</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in links.items(): %}
+            <tr>
+                <th scope = "col">{{key}}</th>
+                <th scope = "col2">{{value}}</th>
+                <th scope = "col2"> <input name = "{{key}}" type="submit" class="btn btn-outline-danger" onclick = "getKey()" value = "Remove"></th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <p id = "demo"></p>
+    <script>
+        function getKey(){
+            var key = document.getElementsByTagName("button")[0].getAttribute("name");
+            document.getElementById("demo").innerHTML = key;
+        }
+    </script>
 {% endblock %}

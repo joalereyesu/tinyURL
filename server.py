@@ -25,6 +25,8 @@ def getLink (token):
 def getAllLinks ():
     return conn.hgetall("linkServer")
 
+def deleteURL (token):
+    conn.hdel("linkServer", token)
 
 
 

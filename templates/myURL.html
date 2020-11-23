@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="topnav">
+    <a href="/">MakeItTiny</a>
+    <a href="/urls">URLs</a>
+    <a href="/stats">Stats</a>
+    <a href="/about">About</a>
+</div>
+<br>
+<form action=" ">
+    <div class="col-md-4 mb-3" style = "display: block; margin-left: auto; margin-right: auto">
+        <br>
+        <h2 style = "text-align: center">We made it tiny!</h2>
+        <input name="texto" type="text" class="form-control" id="validationCustom02" placeholder="{{link}}">
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg" style = "display: block; margin-left: auto; margin-right: auto">Copy to clipboard</button>
+    <br>
+    <br>
+</form>
+
+{% endblock %}
