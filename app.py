@@ -29,9 +29,8 @@ def tiny():
 
 @app.route("/urls", methods=["GET", "POST"])
 def urls():
-    token = request.args.get("getKey()", "")
-    print(token)
-    if (token):
+    if request.method == "POST":
+        token = request.form["remove"]
         server.deleteURL(token)
         return render_template("urls.html", links = server.getAllLinks())
     return render_template("urls.html", links = server.getAllLinks())
