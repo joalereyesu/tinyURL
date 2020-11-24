@@ -24,7 +24,7 @@
                 {% for key, value in links.items(): %}
                     {% for link, visit in visits.items() %}
                     <tr>
-                        <th scope = "col">{{domain + link}}</th>
+                        <th scope = "col">{{domain + key}}</th>
                         <th scope = "col2">{{value}}</th>
                         <th scope = "col3">{{visit}}</th>
                     </tr>

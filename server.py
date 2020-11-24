@@ -23,10 +23,12 @@ def getAllLinks ():
 
 def deleteURL (token):
     conn.hdel("linkServer", token)
+    conn.hdel("linksVisits", token)
 
 def setNewVisit (token):
     visits = getVisit(token)
     visits =+1
+    conn.hdel("linksVisits", token)
     conn.hset("linksVisits", token, visits)
 
 def getVisit (token):

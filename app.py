@@ -47,6 +47,7 @@ def urls():
 def stats():
     return render_template("stats.html", links = server.getAllLinks(), visits = server.getAllLinksVisits(), domain = domain)
 
+
 @app.route("/about")
 def about():
     return render_template("about.html")
@@ -54,6 +55,10 @@ def about():
 @app.route("/thanks")
 def thankYou():
     return render_template("thankyou.html")
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('error_found.html'), 404
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)
