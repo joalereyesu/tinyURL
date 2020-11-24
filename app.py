@@ -33,19 +33,24 @@ def redirectURL (link):
         server.setNewVisit(link)
         return redirect(ogURL)
     else:
-        """notfound"""
+        """404"""
 
 @app.route("/urls", methods=["GET", "POST"])
 def urls():
+    url = "url"
     if request.method == "POST":
         token = request.form["remove"]
         server.deleteURL(token)
-        return render_template("urls.html", links = server.getAllLinks(), domain = domain)
-    return render_template("urls.html", links = server.getAllLinks(), domain = domain)
+        allLinks = server.getAllLinks()
+        return render_template("urls.html", links = allLinks, domain = domain, url = url)
+    allLinks = server.getAllLinks()
+    return render_template("urls.html", links = allLinks, domain = domain, url=url)
 
 @app.route("/stats")
 def stats():
-    return render_template("stats.html", links = server.getAllLinks(), visits = server.getAllLinksVisits(), domain = domain)
+    url = "url"
+    visits = "visits"
+    return render_template("stats.html", links = server.getAllLinks(), url = url, visits = visits, domain = domain)
 
 
 @app.route("/about")

@@ -29,7 +29,7 @@
                 {% for key, value in links.items(): %}
                 <tr>
                     <th scope = "col">{{domain + key}}</th>
-                    <th scope = "col2">{{value}}</th>
+                    <th scope = "col2">{{value[url]}}</th>
                     <th scope = "col3"> 
                         <form method = "POST">
                             <button name = "remove" type="submit" class="btn btn-outline-danger" value = "{{key}}">Remove</button>

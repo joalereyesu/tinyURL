@@ -1,6 +1,7 @@
 from redis import Redis
 #from redisworks import Root
 import random, string
+import json
 
 #conn = Redis('localhost')
 conn = Redis(host = 'localhost', port = 6379, charset="utf-8", decode_responses = True)    
@@ -12,25 +13,36 @@ def generateRandomKey ():
 
 
 def setNewLink (token, link):
-    conn.hset("linkServer", token, link)
     visits = 0
-    conn.hset("linksVisits", token, visits)
+    dic = {'url': link, 'visits': visits}
+    val = json.dumps(dic)
+    conn.hset("linkServer", token, val)
 
 def getLink (token):
-    return conn.hget("linkServer", token)
+    miniDic = conn.hget("linkServer", token)
+    pyDic = json.loads(miniDic)
+    return pyDic['url']
 
 def getAllLinks ():
-    return conn.hgetall("linkServer")
+    nuevo = {}
+    redisDic = conn.hgetall("linkServer")
+    for key, val in redisDic.items():
+        redisDic[key] = json.loads(val)
+    return redisDic
+
 
 def deleteURL (token):
     conn.hdel("linkServer", token)
-    conn.hdel("linksVisits", token)
+    #conn.hdel("linksVisits", token)
 
 def setNewVisit (token):
-    visits_str = getVisit(token)
-    visits = int(visits_str)
-    visits = visits + 1
-    conn.hset("linksVisits", token, visits)
+    miniDic = conn.hget("linkServer", token)
+    pyDic = json.loads(miniDic)
+    visit = pyDic['visits']
+    newVisit = visit + 1
+    pyDic['visits'] = newVisit
+    strDic = json.dumps(pyDic)
+    conn.hset("linkServer", token, strDic)
 
 def getVisit (token):
     return conn.hget("linksVisits", token)

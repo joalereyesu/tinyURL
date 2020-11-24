@@ -22,13 +22,11 @@
             </thead>
             <tbody>
                 {% for key, value in links.items() %}
-                    {% for link, visit in visits.items() %}
                     <tr>
                         <th scope = "col">{{domain + key}}</th>
-                        <th scope = "col">{{value}}</th>
-                        <th scope = "col">{{visit}}</th>
+                        <th scope = "col">{{value[url]}}</th>
+                        <th scope = "col">{{value[visits]}}</th>
                     </tr>
-                    {% endfor %}
                 {% endfor %}        
             </tbody>
         </table>
