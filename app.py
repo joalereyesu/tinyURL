@@ -5,7 +5,7 @@ import random, string
 import server
 
 domain = "0.0.0.0:5000/"
-
+number = 0
 templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
 

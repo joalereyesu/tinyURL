@@ -1,8 +1,9 @@
 from redis import Redis
+#from redisworks import Root
 import random, string
 
 #conn = Redis('localhost')
-conn = Redis(host = 'localhost', port = 6379, charset="utf-8", decode_responses = True)
+conn = Redis(host = 'localhost', port = 6379, charset="utf-8", decode_responses = True)    
 
 def generateRandomKey ():
     key = string.ascii_lowercase + string.digits
@@ -26,9 +27,9 @@ def deleteURL (token):
     conn.hdel("linksVisits", token)
 
 def setNewVisit (token):
-    visits = getVisit(token)
-    visits =+1
-    conn.hdel("linksVisits", token)
+    visits_str = getVisit(token)
+    visits = int(visits_str)
+    visits = visits + 1
     conn.hset("linksVisits", token, visits)
 
 def getVisit (token):
