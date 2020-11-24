@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+
 <div class="topnav">
     <a href="/">MakeItTiny</a>
     <a href="/urls">URLs</a>
@@ -12,11 +13,20 @@
     <div class="col-md-4 mb-3" style = "display: block; margin-left: auto; margin-right: auto">
         <br>
         <h2 style = "text-align: center">We made it tiny!</h2>
-        <input name="texto" type="text" class="form-control" id="validationCustom02" placeholder="{{domain+link}}">
+        <input name="texto" type="text" class="form-control" id="shortenedLink" value="{{domain+link}}" readonly>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg" style = "display: block; margin-left: auto; margin-right: auto">Copy to clipboard</button>
+    <br>
+    <button type="submit" class="btn btn-primary btn-lg" style = "display: block; margin-left: auto; margin-right: auto" onclick="myFunction()">Copy to Clipboard</button>
     <br>
     <br>
 </form>
+<script>
+    function myFunction() {
+      var copyText = document.getElementById("shortenedLink");
+      copyText.select();
+      document.execCommand("Copy");
+      alert("Copied the shortened link: " + copyText.value);
+    }
+</script>
 
 {% endblock %}
