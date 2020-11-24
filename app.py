@@ -3,6 +3,7 @@ from jinja2 import Template, FileSystemLoader, Environment
 from typing import Dict, Text
 import random, string
 import server
+from server import linksServer
 
 domain = "https://makeItTiny.com/"
 
@@ -51,6 +52,10 @@ def about():
 @app.route("/thanks")
 def thankYou():
     return render_template("thankyou.html")
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('error_found.html'), 404
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)
