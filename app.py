@@ -4,7 +4,7 @@ from typing import Dict, Text
 import random, string
 import server
 
-domain = "https://makeItTiny.com/"
+domain = "0.0.0.0:5000/"
 
 templates = FileSystemLoader('templates')
 environment = Environment(loader = templates)
@@ -17,32 +17,35 @@ def tiny():
     optional = request.args.get("optional", "")
     if (optional == "" and url):
         #url se va al redis y se crea el random URL
-        token = server.generateRandomKey(domain)
+        token = server.generateRandomKey()
         server.setNewLink(token, url)
-        return render_template("myURL.html", link = token)
+        return render_template("myURL.html", link = token, domain = domain)
     elif (optional):
         #si optional si trae algun input se crea URL con ese input
-        token = server.generateOptionalKey(optional, domain)
-        server.setNewLink(token, url)
-        return render_template("myURL.html", link = token)
+        server.setNewLink(optional, url)
+        return render_template("myURL.html", link = optional, domain = domain)
     return render_template("tiny.html")
+
+@app.route("/<link>", methods = ["GET"])
+def redirectURL (link):
+    if link in server.getAllLinks():
+        ogURL = server.getLink(link)
+        server.setNewVisit(link)
+        return redirect(ogURL)
+    else:
+        """notfound"""
 
 @app.route("/urls", methods=["GET", "POST"])
 def urls():
     if request.method == "POST":
         token = request.form["remove"]
         server.deleteURL(token)
-        return render_template("urls.html", links = server.getAllLinks())
-    return render_template("urls.html", links = server.getAllLinks())
+        return render_template("urls.html", links = server.getAllLinks(), domain = domain)
+    return render_template("urls.html", links = server.getAllLinks(), domain = domain)
 
-@app.route("/delete")
-def delete():
-    token = request.args.get("name")
-    #dic = server.getAllLinks()
-    #list_links = list(dic)
-    #token = list_links[position]
-    server.deleteURL(token)
-    return render_template("urls.html")
+@app.route("/stats")
+def stats():
+    return render_template("stats.html", links = server.getAllLinks(), visits = server.getAllLinksVisits(), domain = domain)
 
 @app.route("/about")
 def about():
