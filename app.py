@@ -45,6 +45,10 @@ def delete():
     server.deleteURL(token)
     return render_template("urls.html")
 
+@app.route("/stats")
+def statics():
+    return render_template("stats.html")
+
 @app.route("/about")
 def about():
     return render_template("about.html")
