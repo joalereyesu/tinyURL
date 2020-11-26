@@ -26,7 +26,7 @@ def tiny():
         server.setNewLink(optional, url)
         return render_template("myURL.html", link = optional, domain = domain)
     elif (find):
-        return redirect(url_for('/search', token = find))
+        return redirect(url_for('search', token = find))
     return render_template("tiny.html")
 
 @app.route("/<link>", methods = ["GET"])
@@ -48,7 +48,7 @@ def urls():
         allLinks = server.getAllLinks()
         return render_template("urls.html", links = allLinks, domain = domain, url = url, time = time)
     elif (find):
-        return redirect(url_for('/search', token = find))
+        return redirect(url_for('search', token = find))
     allLinks = server.getAllLinks()
     return render_template("urls.html", links = allLinks, domain = domain, url=url, time = time)
 
@@ -59,7 +59,7 @@ def stats():
     time = 'time'
     find = request.args.get("find", "")
     if (find):
-        return redirect(url_for('/search', token = find))
+        return redirect(url_for('search', token = find))
     return render_template("stats.html", links = server.getAllLinks(), url = url, visits = visits, time = time, domain = domain)
 
 
@@ -67,11 +67,12 @@ def stats():
 def about():
     find = request.args.get("find", "")
     if (find):
-        return redirect(url_for('/search', token = find))
+        return redirect(url_for('search', token = find))
     return render_template("about.html")
 
 @app.route("/search")
-def search(token):
+def search():
+    token = 'Dakiti'
     url = 'url'
     time = 'time'
     info = server.getInfo(token)
