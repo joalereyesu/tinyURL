@@ -2,6 +2,7 @@ from redis import Redis
 #from redisworks import Root
 import random, string
 import json
+from datetime import date, datetime
 
 #conn = Redis('localhost')
 conn = Redis(host = 'localhost', port = 6379, charset="utf-8", decode_responses = True)    
@@ -14,7 +15,9 @@ def generateRandomKey ():
 
 def setNewLink (token, link):
     visits = 0
-    dic = {'url': link, 'visits': visits}
+    today_date = datetime.now()
+    now = today_date.strftime("%d/%m/%Y %I:%M%p")
+    dic = {'url': link, 'visits': visits, 'time': now}
     val = json.dumps(dic)
     conn.hset("linkServer", token, val)
 
@@ -22,6 +25,11 @@ def getLink (token):
     miniDic = conn.hget("linkServer", token)
     pyDic = json.loads(miniDic)
     return pyDic['url']
+
+def getInfo (token):
+    miniDic = conn.hget("linkServer", token)
+    pyDic = json.loads(miniDic)
+    return pyDic
 
 def getAllLinks ():
     nuevo = {}

@@ -15,6 +15,7 @@ app = Flask(__name__)
 def tiny():
     url = request.args.get("url", "")
     optional = request.args.get("optional", "")
+    find = request.args.get("find", "")
     if (optional == "" and url):
         #url se va al redis y se crea el random URL
         token = server.generateRandomKey()
@@ -24,6 +25,8 @@ def tiny():
         #si optional si trae algun input se crea URL con ese input
         server.setNewLink(optional, url)
         return render_template("myURL.html", link = optional, domain = domain)
+    elif (find):
+        return redirect(url_for('/search', token = find))
     return render_template("tiny.html")
 
 @app.route("/<link>", methods = ["GET"])
@@ -32,30 +35,47 @@ def redirectURL (link):
         ogURL = server.getLink(link)
         server.setNewVisit(link)
         return redirect(ogURL)
-    else:
-        """404"""
+    
 
 @app.route("/urls", methods=["GET", "POST"])
 def urls():
     url = "url"
+    time = 'time'
+    find = request.args.get("find", "")
     if request.method == "POST":
         token = request.form["remove"]
         server.deleteURL(token)
         allLinks = server.getAllLinks()
-        return render_template("urls.html", links = allLinks, domain = domain, url = url)
+        return render_template("urls.html", links = allLinks, domain = domain, url = url, time = time)
+    elif (find):
+        return redirect(url_for('/search', token = find))
     allLinks = server.getAllLinks()
-    return render_template("urls.html", links = allLinks, domain = domain, url=url)
+    return render_template("urls.html", links = allLinks, domain = domain, url=url, time = time)
 
-@app.route("/stats")
+@app.route("/stats", methods = ["GET", "POST"])
 def stats():
     url = "url"
     visits = "visits"
-    return render_template("stats.html", links = server.getAllLinks(), url = url, visits = visits, domain = domain)
+    time = 'time'
+    find = request.args.get("find", "")
+    if (find):
+        return redirect(url_for('/search', token = find))
+    return render_template("stats.html", links = server.getAllLinks(), url = url, visits = visits, time = time, domain = domain)
 
 
-@app.route("/about")
+@app.route("/about", methods = ["GET", "POST"])
 def about():
+    find = request.args.get("find", "")
+    if (find):
+        return redirect(url_for('/search', token = find))
     return render_template("about.html")
+
+@app.route("/search")
+def search(token):
+    url = 'url'
+    time = 'time'
+    info = server.getInfo(token)
+    return render_template("search.html", name = token, info = info, url = url, time = time)
 
 @app.route("/thanks")
 def thankYou():

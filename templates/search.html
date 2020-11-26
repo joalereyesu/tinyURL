@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="topnav">
+    <a href="/">MakeItTiny</a>
+    <a href="/urls">URLs</a>
+    <a href="/stats">Stats</a>
+    <a href="/about">About</a>
+</div>
+
+<br>
+<h1>Results</h1>
+<br>
+<div class="card text-center">
+    <center>
+    <div class="card text-white bg-dark" style="max-width: 30rem;">
+        <div class="card-header">
+        Your tiny link
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">{{name}}</h5>
+        <p class="card-text">{{info[url]}}</p>
+        <a href="{{info[url]}}" class="btn btn-primary">Go to link</a>
+        </div>
+        <div class="card-footer text-muted">
+        {{info[time]}}
+        </div>
+    </div>  
+    </center>
+</div>
+<br>
+<br>
+{% endblock %}
