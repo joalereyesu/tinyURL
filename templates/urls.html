@@ -7,12 +7,6 @@
 
         }
     </script>
-    <div class="topnav">
-        <a href="/">MakeItTiny</a>
-        <a class="active" href="/urls">URLs</a>
-        <a href="/stats">Stats</a>
-        <a href="/about">About</a>
-    </div>
 
     <br>
     <h1>Your URLs</h1>
@@ -21,9 +15,8 @@
         <table class="table table-striped table-dark">
             <thead>
                 <tr>
-                    <th scope = "col">Tiny</th>
                     <th scope = "col">Original</th>
-                    <th scope = "col">Created</th>
+                    <th scope = "col">Tiny</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,8 +24,7 @@
                 <tr>
                     <th scope = "col">{{domain + key}}</th>
                     <th scope = "col2">{{value[url]}}</th>
-                    <th scope = "col3">{{value[time]}}</th>
-                    <th scope = "col4"> 
+                    <th scope = "col3"> 
                         <form method = "POST">
                             <button name = "remove" type="submit" class="btn btn-outline-danger" value = "{{key}}">Remove</button>
                         </form>

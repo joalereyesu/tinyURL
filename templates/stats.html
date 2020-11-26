@@ -1,12 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-    <div class="topnav">
-        <a href="/">MakeItTiny</a>
-        <a href="/urls">URLs</a>
-        <a class="active" href="/stats">Stats</a>
-        <a href="/about">About</a>
-    </div>
 
     <br>
     <h1>URLs Visits</h1>
@@ -17,7 +11,6 @@
                 <tr>
                     <th scope = "col">Tiny</th>
                     <th scope = "col">Original</th>
-                    <th scope = "col">Created</th>
                     <th scope = "col">Visits</th>
                 </tr>
             </thead>
@@ -26,7 +19,6 @@
                     <tr>
                         <th scope = "col">{{domain + key}}</th>
                         <th scope = "col">{{value[url]}}</th>
-                        <th scope = "col">{{value[time]}}</th>
                         <th scope = "col">{{value[visits]}}</th>
                     </tr>
                 {% endfor %}        

@@ -35,6 +35,8 @@ def redirectURL (link):
         ogURL = server.getLink(link)
         server.setNewVisit(link)
         return redirect(ogURL)
+    else:
+        return render_template('error_found.html'), 404
     
 
 @app.route("/urls", methods=["GET", "POST"])
