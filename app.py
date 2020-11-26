@@ -72,9 +72,8 @@ def about():
         return redirect(url_for('search', token = find))
     return render_template("about.html")
 
-@app.route("/search")
-def search():
-    token = 'Dakiti'
+@app.route("/search/<token>")
+def search(token):
     url = 'url'
     time = 'time'
     info = server.getInfo(token)

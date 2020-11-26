@@ -11,6 +11,7 @@
                 <tr>
                     <th scope = "col">Tiny</th>
                     <th scope = "col">Original</th>
+                    <th scope = "col">Date</th>
                     <th scope = "col">Visits</th>
                 </tr>
             </thead>
@@ -19,6 +20,7 @@
                     <tr>
                         <th scope = "col">{{domain + key}}</th>
                         <th scope = "col">{{value[url]}}</th>
+                        <th scope = "col">{{value[time]}}</th>
                         <th scope = "col">{{value[visits]}}</th>
                     </tr>
                 {% endfor %}        
