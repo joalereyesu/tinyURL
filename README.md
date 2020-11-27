@@ -1,3 +1,2 @@
 # tinyURL
-integrantes: Jose Reyes, Marcela Melgar
-curso: Programacion de Dispositivos Electronicos
+Jose Reyes y Marcela Melgar
