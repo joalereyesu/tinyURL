@@ -1,9 +1,13 @@
 FROM python:3-alpine
 
-ENV PYTHONUNBUFFERED=1
-COPY src/requirements.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
-WORKDIR /app
-COPY src/ .
+COPY requierments.txt /tmp/
 
-CMD ["python", "/app/app.py"]
+RUN pip install -r /tmp/requierments.txt
+
+WORKDIR /app/
+
+COPY . ./
+
+CMD ["python", "app.py"]
+
+EXPOSE 5000
