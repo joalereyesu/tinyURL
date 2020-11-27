@@ -6,4 +6,6 @@ Jose Reyes y Marcela Melgar
 https://youtu.be/39ekiU3Mm3s
 ## Run
 open folder
-~~~docker-compose up --build~~~
+~~~
+docker-compose up --build
+~~~
