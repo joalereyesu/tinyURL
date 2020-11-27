@@ -1,11 +1,13 @@
 from redis import Redis
+import os
 #from redisworks import Root
 import random, string
 import json
 from datetime import date, datetime
 
 #conn = Redis('localhost')
-conn = Redis(host = 'localhost', port = 6379, charset="utf-8", decode_responses = True)    
+REDIS_HOST = os.getenv("REDIS_HOST", None)
+conn = Redis(host=REDIS_HOST, port=6379)    
 
 def generateRandomKey ():
     key = string.ascii_lowercase + string.digits
