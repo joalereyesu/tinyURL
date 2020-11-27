@@ -7,7 +7,7 @@ from datetime import date, datetime
 
 #conn = Redis('localhost')
 REDIS_HOST = os.getenv("REDIS_HOST", None)
-conn = Redis(host=REDIS_HOST, port=6379)    
+conn = Redis(host=REDIS_HOST, port=6379, decode_responses=True)
 
 def generateRandomKey ():
     key = string.ascii_lowercase + string.digits
@@ -22,7 +22,7 @@ def setNewLink (token, link):
     dic = {'url': link, 'visits': visits, 'time': now}
     val = json.dumps(dic)
     conn.hset("linkServer", token, val)
-
+ 
 def getLink (token):
     miniDic = conn.hget("linkServer", token)
     pyDic = json.loads(miniDic)
