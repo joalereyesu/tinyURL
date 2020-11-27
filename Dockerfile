@@ -1,6 +1,6 @@
 FROM python:3-alpine
 
-COPY requierments.txt /tmp/
+COPY requirements.txt /tmp/
 
 RUN pip install -r /tmp/requirements.txt
 
