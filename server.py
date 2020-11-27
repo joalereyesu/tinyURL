@@ -34,7 +34,6 @@ def getInfo (token):
     return pyDic
 
 def getAllLinks ():
-    nuevo = {}
     redisDic = conn.hgetall("linkServer")
     for key, val in redisDic.items():
         redisDic[key] = json.loads(val)
@@ -43,7 +42,6 @@ def getAllLinks ():
 
 def deleteURL (token):
     conn.hdel("linkServer", token)
-    #conn.hdel("linksVisits", token)
 
 def setNewVisit (token):
     miniDic = conn.hget("linkServer", token)
@@ -54,10 +52,6 @@ def setNewVisit (token):
     strDic = json.dumps(pyDic)
     conn.hset("linkServer", token, strDic)
 
-def getVisit (token):
-    return conn.hget("linksVisits", token)
 
-def getAllLinksVisits():
-    return conn.hgetall("linksVisits")
 
 #print(link)
