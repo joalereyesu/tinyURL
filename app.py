@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
 from jinja2 import Template, FileSystemLoader, Environment
 from typing import Dict, Text
-import random, string
 import server
 
 domain = "0.0.0.0:5000/"
@@ -35,8 +34,7 @@ def redirectURL (link):
         ogURL = server.getLink(link)
         server.setNewVisit(link)
         return redirect(ogURL)
-    else:
-        return render_template('error_found.html'), 404
+    return page_not_found(401)
     
 
 @app.route("/urls", methods=["GET", "POST"])
