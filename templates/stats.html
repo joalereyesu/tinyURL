@@ -1,6 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">MakeItTiny</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/urls">URLs</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" style="color:#00cccc" href="/stats">Stats</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+      </ul>
+    </div>
+    <form class="form-inline">
+      <input name = "find" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-info" type="submit"><em style="font-size:24px;color:#00cccc" class="fa">&#xf002;</em></button>
+    </form>
+  </nav>
 
     <br>
     <h1>URLs Visits</h1>
